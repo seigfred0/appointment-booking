@@ -2,11 +2,10 @@ import express from 'express';
 import { createDoctor, deleteDoctor, getDoctor, getDoctors, updateDoctor } from './doctor.controller.mjs';
 import { DoctorType } from '../../types/Types.mjs';
 import { createDoctorSchedule, deleteDoctorSchedule, getDoctorSchedule, getDoctorSchedules, updateDoctorSchedule } from './doctors-schedule/doctorSchedule.controller.mjs';
+import { DoctorSlotsModel } from './doctors-slots/doctorSlots.model.mjs';
 
 
 const doctorRouter = express.Router();
-
-
 
 
 
@@ -128,7 +127,20 @@ doctorRouter.delete('/:doctorId/schedule/:scheduleId', async (req, res) => {
 })
 
 
+// //////////////// Doctor Slot Routes ////////////////////////////
 
+doctorRouter.post('/:clinicId/slots', async (req, res) => {
+    try {
+        const { clinicId } = req.params
+        const model = new DoctorSlotsModel();
+        const response = await model.create(clinicId);
+
+        res.send(response);
+        
+    } catch (error) {
+        console.log('err', error)
+    }
+})
 
 
 export default doctorRouter;

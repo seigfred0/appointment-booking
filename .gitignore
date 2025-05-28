@@ -2,3 +2,6 @@
 
 **/.env
 **/.env.*
+
+**/build
+/server/tests

@@ -12,7 +12,7 @@ testingRouter.get('/', async (req, res) => {
         // create slots
         // id, doctor_id, clinic_id, slot_date, start_time, end_time, is_booked, appointment_id
 
-        const doctors = ["7af5ed12-c484-49a6-bda6-a7428edbc7ca", "4d58e6c0-661c-4d7f-b6ad-9b018625e3c9"]
+        // const doctors = ["7af5ed12-c484-49a6-bda6-a7428edbc7ca", "4d58e6c0-661c-4d7f-b6ad-9b018625e3c9"]
 
         const db = await connectDB();
         const firstQuery = await db.query(
@@ -24,25 +24,32 @@ testingRouter.get('/', async (req, res) => {
 
         const convertedData: any = extractProperties(rows, ['doctor_id', 'day_of_week', 'clinic_id', 'start_time', 'end_time']);
 
-        console.log('convertedData', convertedData);
-
+        
         const allSlots = [];
 
+        /*
         for (const doctor of convertedData) {
+            // console.log(doctor.slots[0], '999999999')
             const slots = await createTimeSlots(
                 doctor.doctorId,
-                doctor.slots['clinic_id'], // clinic id
-                "2025-05-27",
-                "09:00:00+08:00",
-                "17:00:00+08:00",
+                doctor.slots[0]['clinic_id'], // clinic id
+                "2025-05-27", // should be dynamic to current date
+                // "09:00:00+08:00",
+                doctor.slots[0]['start_time'],
+                doctor.slots[0]['end_time'],
+                // "17:00:00+08:00",
                 false,
                 null,
                 7,
-                [1,2,3,4]
+                [1,2,3,4] // converted data incorrect
             )
             // console.log('SLOTS', slots)
             allSlots.push(...slots);
         }
+        */
+        res.send(convertedData);
+
+
         // for (const doctor of convertedData) {
         //     for (const slot of doctor.slots) {
         //         const slots = await createTimeSlots(
@@ -63,18 +70,15 @@ testingRouter.get('/', async (req, res) => {
         //     }
         
         // }
-        console.log(allSlots)
 
-        const query = format(
-            `INSERT INTO doctor_slots (id, doctor_id, clinic_id, slot_date, start_time, end_time, is_booked, appointment_id) 
-             VALUES %L`,
-            allSlots
-        );
+        // const query = format(
+        //     `INSERT INTO doctor_slots (id, doctor_id, clinic_id, slot_date, start_time, end_time, is_booked, appointment_id) 
+        //      VALUES %L`,
+        //     allSlots
+        // );
 
-        const result = await db.query(query);
+        // const result = await db.query(query);
 
-
-        res.send(result);
     } catch (error) {
         console.log(error);
     }

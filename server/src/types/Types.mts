@@ -45,3 +45,4 @@ export interface DoctorScheduleType {
     end_time: string, 
     is_available: boolean,
 }
+
