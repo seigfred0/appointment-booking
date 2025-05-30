@@ -21,8 +21,6 @@ export interface PatientType {
     name: string,
     email: string,
     phone: string,
-    status: string,
-    updated_at: Date
 }
 
 export interface AppointmentType {

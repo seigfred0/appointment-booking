@@ -8,7 +8,6 @@ import { createSlots, getSlots, updateSlotBooking } from './doctors-slots/doctor
 const doctorRouter = express.Router();
 
 
-
 // CRUD BASIC ROUTES FOR DOCTORS //////////////////////
 doctorRouter.post('/', async (req, res) => {
     try {

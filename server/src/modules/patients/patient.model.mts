@@ -10,22 +10,21 @@ export class PatientModel {
             const db = await connectDB();
             
             const result = await db.query(
-                `INSERT INTO patients(id, clinic_id, name, email, phone, status, updated_at) 
-                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+                `INSERT INTO patients(id, clinic_id, name, email, phone) 
+                    VALUES ($1, $2, $3, $4, $5) RETURNING *`,
                 [
                     patientData.id, 
                     patientData.clinic_id, 
                     patientData.name, 
                     patientData.email, 
                     patientData.phone, 
-                    patientData.status,
-                    patientData.updated_at, 
                 ]
             )
             return {
                 status: "Success",
                 message: "One Patient Added",
-                info: {command: result['command'], rows: result['rows']},
+                info: {command: result['command'], rows: result['rows']}
+                
             }
         } catch (error) {
             throw error;
