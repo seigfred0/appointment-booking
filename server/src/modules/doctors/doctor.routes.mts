@@ -2,11 +2,10 @@ import express from 'express';
 import { createDoctor, deleteDoctor, getDoctor, getDoctors, updateDoctor } from './doctor.controller.mjs';
 import { DoctorType } from '../../types/Types.mjs';
 import { createDoctorSchedule, deleteDoctorSchedule, getDoctorSchedule, getDoctorSchedules, updateDoctorSchedule } from './doctors-schedule/doctorSchedule.controller.mjs';
-import { DoctorSlotsModel } from './doctors-slots/doctorSlots.model.mjs';
+import { createSlots, getSlots, updateSlotBooking } from './doctors-slots/doctorSlots.controller.mjs';
 
 
 const doctorRouter = express.Router();
-
 
 
 
@@ -130,15 +129,40 @@ doctorRouter.delete('/:doctorId/schedule/:scheduleId', async (req, res) => {
 // //////////////// Doctor Slot Routes ////////////////////////////
 
 doctorRouter.post('/:clinicId/slots', async (req, res) => {
+    // ------ /:clinicId/slots?days=3
     try {
         const { clinicId } = req.params
-        const model = new DoctorSlotsModel();
-        const response = await model.create(clinicId);
+        const { days } = req.query;
+        const response = await createSlots(clinicId, Number(days))        
 
         res.send(response);
-        
-    } catch (error) {
-        console.log('err', error)
+    } catch (error: any) {
+        const errorCode  = error?.errorCode || 500;
+        res.status(errorCode).send(error);
+    }
+})
+
+doctorRouter.get('/:clinicId/slots', async (req, res) => {
+    try {
+        const { clinicId } = req.params
+        const response = await getSlots(clinicId);
+        res.send(response);
+    } catch (error: any) {
+        const errorCode  = error?.errorCode || 500;
+        res.status(errorCode).send(error);
+    }
+})
+
+doctorRouter.patch('/:clinicId/slots/:slotId', async (req, res) => {
+    try {
+        const { clinicId, slotId } = req.params;
+        const { isBooked } = req.body;
+        // Boolean(isBooked) returns **true**....non-empty strings are truthy
+        const response = await updateSlotBooking(isBooked, slotId, clinicId);
+        res.send(response);
+    } catch (error: any) {
+        const errorCode  = error?.errorCode || 500;
+        res.status(errorCode).send(error);
     }
 })
 

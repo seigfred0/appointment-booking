@@ -176,15 +176,12 @@ export const createTimeSlots = async (
         // format must be <09:00:00+08:00> time + timezone
         const startISO = new Date(`${slot_date}T${start_time}:00`);
         const endISO = new Date(`${slot_date}T${end_time}:00`);
-        console.log(startISO, 'sll')
-        console.log(`${slot_date}T${start_time}`)
+        
 
-        // Offset by i days
         const startUTC = new Date(startISO.getTime() + i * 24 * 60 * 60 * 1000);
         const endUTC = new Date(endISO.getTime() + i * 24 * 60 * 60 * 1000);
 
         let currentSlotTime = new Date(startUTC);
-
 
         while (currentSlotTime < endUTC) {
           const slotStart = new Date(currentSlotTime);

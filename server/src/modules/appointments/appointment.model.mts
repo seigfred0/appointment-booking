@@ -4,6 +4,7 @@ import { AppointmentType } from "../../types/Types.mjs";
 
 
 export class AppointmentModel {
+
     async create(appointmentData: AppointmentType) {
         try {
             const db = await connectDB();

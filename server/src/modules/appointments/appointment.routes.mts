@@ -6,6 +6,7 @@ const appointmentRouter = express.Router();
 appointmentRouter.post('/', async (req, res) => {
     try {
         const appointmentData = req.body;
+        // console.log(appointmentData);
         const response = await createAppointment(appointmentData);
         res.send(response);
     } catch (error: any) {
@@ -58,5 +59,7 @@ appointmentRouter.delete('/:appointmentId', async (req, res) => {
         res.status(errorCode).send(error);
     }
 })
+
+
 
 export default appointmentRouter;

@@ -1,6 +1,7 @@
 import { ErrorResponse, Response } from "../../types/Response.mjs";
 import { AppointmentType } from "../../types/Types.mjs";
 import { getErrorCode, getErrorMessage } from "../../utils/errorHelper.mjs";
+import { DoctorSlotsModel } from "../doctors/doctors-slots/doctorSlots.model.mjs";
 import { AppointmentModel } from "./appointment.model.mjs";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,9 +13,14 @@ export const createAppointment = async (appointmentData: AppointmentType): Promi
     try {
         const id = uuidv4();
         // const updated_at = new Date();
-        const dataToSave = { ...appointmentData, id }
+        const withId: any = { ...appointmentData, id }; // spreading
+        const { slot_id, ...dataToSave } = withId;
 
+        // must also mark the doctor slot as false (booked)....
+        const doctorSlotModel = new DoctorSlotsModel();
+        await doctorSlotModel.updateBooking(true, slot_id, dataToSave['clinic_id']);
         const model = await appointmentModel.create(dataToSave);
+
         const response: Response<AppointmentType> = {
             status: model.status,
             message: model.message,
