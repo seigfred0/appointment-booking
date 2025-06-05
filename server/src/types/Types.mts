@@ -44,3 +44,7 @@ export interface DoctorScheduleType {
     is_available: boolean,
 }
 
+
+export interface ObjectType{
+  [key:string]: string | number;
+};
