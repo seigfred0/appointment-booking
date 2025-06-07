@@ -4,31 +4,32 @@ import App from './App.vue'
 
 import { createRouter, createWebHistory } from 'vue-router';
 
-
-const routerHome = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    }
-]
-
-
 import appointments from './modules/appointments/router';
-import Home from './Home.vue';
+import Dashboard from './common/layout/Dashboard.vue';
+
+// const routerHome = [
+//     {
+//         path: '/',
+//         name: 'Home',
+//         component: Home
+//     }
+// ]
 
 
 const routes = [
-    ...routerHome,
-    ...appointments
+    {
+        path: '/',
+        component: Dashboard,
+        children: [
+            ...appointments
+        ]
+    }
 ]
-
 
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
-
 
 
 createApp(App).use(router).mount('#app')

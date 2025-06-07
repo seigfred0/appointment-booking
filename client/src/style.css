@@ -1,3 +1,39 @@
+@import "tailwindcss";
+
+
+/* * {
+  padding: 0; 
+  margin: 0;
+  box-sizing: border-box;
+} */
+
+body {
+  font-family: 'Inter';
+}
+
+@theme {
+  --color-purple: #525EFF;
+
+  --color-white1: #FFFFFF;
+  --color-white2: #F6F8FA;
+  --color-btnHover: #F6F8FA;
+
+  --color-borderColor: #EBEBEB;
+  --color-borderBottom: #BCBCBC;
+}
+
+@layer base {
+  * {
+    @apply box-border;
+
+  }
+
+ 
+
+  
+}
+
+/* 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -76,4 +112,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
