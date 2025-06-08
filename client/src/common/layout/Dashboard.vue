@@ -2,12 +2,19 @@
 import sidebar from './sidebar.vue';
 </script>
 
+
 <template>
-    <div class="flex h-screen ">
-        <sidebar></sidebar>
-        <main class="bg-green-50 w-8/10">
+    <div class="bg-white2 flex h-screen w-screen">
+        <sidebar widthPercent="20"></sidebar>
+        <main class="flex flex-col w-full h-full items-center">
             <!-- Header (Username, notifications, ...) -->
-            <router-view></router-view>
+            <div class="bg-white1 w-full h-[10%] border-b-1 border-borderBottom">
+            </div>
+
+            <div class=" bg-white1 h-[90%] w-[94%] mt-10 rounded-xl border-1 border-borderColor2">
+                <router-view></router-view>
+            </div>
+
         </main>
     </div>
 </template>

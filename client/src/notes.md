@@ -9,6 +9,7 @@
 
 
 https://tailwindcss.com/docs/installation/using-vite
+https://github.com/DarkC0der11/vue-modular-architecture/blob/main/src/main.js
 
 # Responsive
 - Use clamp font-size: clamp(minimum, preferred, maximum);

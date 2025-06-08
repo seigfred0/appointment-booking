@@ -10,7 +10,13 @@
     "types": ["node"],
     "moduleResolution": "node",
     "module": "ESNext",
-    "target": "ESNext"
+    "target": "ESNext",
+     "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   }
 
 }
