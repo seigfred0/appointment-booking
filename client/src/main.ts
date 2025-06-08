@@ -7,6 +7,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import appointments from './modules/appointments/router';
 import Dashboard from './common/layout/Dashboard.vue';
 
+import PrimeVue from 'primevue/config';
+// import 'primevue/resources/primevue.min.css';   
+// import Aura from '@primeuix/themes/aura';
+
 // const routerHome = [
 //     {
 //         path: '/',
@@ -14,6 +18,7 @@ import Dashboard from './common/layout/Dashboard.vue';
 //         component: Home
 //     }
 // ]
+import Button from "primevue/button"
 
 
 const routes = [
@@ -31,5 +36,13 @@ const router = createRouter({
     routes
 })
 
+const app = createApp(App);
+app.use(PrimeVue);
 
-createApp(App).use(router).mount('#app')
+app.component('Button', Button);
+
+// createApp(App)
+//     .use(PrimeVue)
+//     .use(router).mount('#app')
+app.use(router)
+app.mount('#app');
